@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Playlist } from './interface/song';
 import { UserService } from './service/user.service';
 
@@ -10,18 +9,17 @@ import { UserService } from './service/user.service';
 })
 export class AppComponent implements OnInit {
   title = 'Ang-app';
-  private song: Playlist = {
-    "id": 3,
-    "artist": "Wizkid",
-    "track": "Sweet One",
-    "listened": true,
-    "favorites": true
+  private song:any = {
+    "id": 2,
+    "track": "Reckless",
   }
   constructor(private songService: UserService) {}
 
   ngOnInit(): void {
     this.OnGetSongs();
-    this.onUpdateSong();
+    // this.changeSong();
+    this.onDeleteSong();
+    // this.onUpdateSong();
     // this.onAddSong();
   }
 
@@ -57,6 +55,22 @@ export class AppComponent implements OnInit {
       (response) => console.log(response),
       (error: any) => console.log(error),
       () => console.log('Done Updating a track'),
+    );
+  }
+
+  changeSong(): void {
+    this.songService.updateSong(this.song).subscribe(
+      (response) => console.log(response),
+      (error: any) => console.log(error),
+      () => console.log('Done Changing a track'),
+    );
+  }
+
+  onDeleteSong(): void {
+    this.songService.deleteSong(6).subscribe(
+      (response) => console.log('Response from delete:',response),
+      (error: any) => console.log(error),
+      () => console.log('Done deleting a track'),
     );
   }
 

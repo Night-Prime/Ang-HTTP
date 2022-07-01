@@ -16,21 +16,31 @@ export class UserService {
 
   // GET requests
   getPlaylist(): Observable<Playlist[]> {
-    return this.http.get<Playlist[]>(`${this.BASE_URL}`);
+    return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`);
   }
 
   getSong(): Observable<Playlist> {
-    return this.http.get<Playlist>(`${this.BASE_URL}/1`);
+    return this.http.get<Playlist>(`${this.BASE_URL}/playlist/1`);
   }
 
   // POST request
   addSong(song: Playlist): Observable<Playlist> {
-    return this.http.post<Playlist>(`${this.BASE_URL}`, song);
+    return this.http.post<Playlist>(`${this.BASE_URL}/playlist`, song);
   }
 
   // PUT request
   updateSong(song: Playlist): Observable<Playlist> {
-    return this.http.put<Playlist>(`${this.BASE_URL}`, song);
+    return this.http.put<Playlist>(`${this.BASE_URL}/playlist/${song.id}`, song);
+  }
+
+  // Patch request
+  changeSong(song: Playlist): Observable<Playlist> {
+    return this.http.patch<Playlist>(`${this.BASE_URL}/playlist/${song.id}`, song);
+  }
+
+  // Delete Request
+  deleteSong(id: number):Observable<void> {
+    return this.http.delete<void>(`${this.BASE_URL}/playlist/${id}`);
   }
 
 

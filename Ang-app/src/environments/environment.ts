@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  BASE_URL :'https://my-json-server.typicode.com/Night-Prime/Playlist-API/playlist'
+  BASE_URL :'https://my-json-server.typicode.com/Night-Prime/Playlist-API'
 };
 
 /*
