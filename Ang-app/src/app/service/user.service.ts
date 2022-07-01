@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Playlist } from '../interface/song';
 import { environment } from 'src/environments/environment';
@@ -16,7 +16,8 @@ export class UserService {
 
   // GET requests
   getPlaylist(): Observable<Playlist[]> {
-    return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`);
+    const myHeaders = new HttpHeaders({'myheader': 'headervalue'});
+    return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`, {headers: myHeaders});
   }
 
   getSong(): Observable<Playlist> {
