@@ -13,12 +13,24 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+
+  // GET requests
   getPlaylist(): Observable<Playlist[]> {
     return this.http.get<Playlist[]>(`${this.BASE_URL}`);
   }
 
   getSong(): Observable<Playlist> {
     return this.http.get<Playlist>(`${this.BASE_URL}/1`);
+  }
+
+  // POST request
+  addSong(song: Playlist): Observable<Playlist> {
+    return this.http.post<Playlist>(`${this.BASE_URL}`, song);
+  }
+
+  // PUT request
+  updateSong(song: Playlist): Observable<Playlist> {
+    return this.http.put<Playlist>(`${this.BASE_URL}`, song);
   }
 
 

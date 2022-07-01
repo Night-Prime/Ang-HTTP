@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Playlist } from './interface/song';
 import { UserService } from './service/user.service';
 
 @Component({
@@ -9,17 +10,25 @@ import { UserService } from './service/user.service';
 })
 export class AppComponent implements OnInit {
   title = 'Ang-app';
+  private song: Playlist = {
+    "id": 3,
+    "artist": "Wizkid",
+    "track": "Sweet One",
+    "listened": true,
+    "favorites": true
+  }
   constructor(private songService: UserService) {}
 
   ngOnInit(): void {
     this.OnGetSongs();
-    this.OnGetSong();
+    this.onUpdateSong();
+    // this.onAddSong();
   }
 
-   // subscribing to the service
+   // subscribing to the service and emitting all the data stream
    OnGetSongs(): void {
     this.songService.getPlaylist().subscribe(
-      (response) => console.log(response),
+      (response) => console.table(response),
       (error: any) => console.log(error),
       () => console.log('Done getting tracks!'),
     );
@@ -35,6 +44,21 @@ export class AppComponent implements OnInit {
     );
   }
 
+  onAddSong(): void {
+    this.songService.addSong(this.song).subscribe(
+      (response) => console.log(response),
+      (error: any) => console.log(error),
+      () => console.log('Done Adding a track'),
+    );
+  }
+
+  onUpdateSong(): void {
+    this.songService.updateSong(this.song).subscribe(
+      (response) => console.log(response),
+      (error: any) => console.log(error),
+      () => console.log('Done Updating a track'),
+    );
+  }
 
 }
 
