@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Playlist } from '../interface/song';
 import { environment } from 'src/environments/environment';
@@ -16,8 +16,7 @@ export class UserService {
 
   // GET requests
   getPlaylist(): Observable<Playlist[]> {
-    const myHeaders = new HttpHeaders({'myheader': 'headervalue'});
-    return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`, {headers: myHeaders});
+    return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`,);
   }
 
   getSong(): Observable<Playlist> {
@@ -44,5 +43,10 @@ export class UserService {
     return this.http.delete<void>(`${this.BASE_URL}/playlist/${id}`);
   }
 
+  // Upload data
+  uploadSongs(formData: FormData): Observable<HttpEvent<string[]>> {
+    return this.http.post<string[]>(`http://localhost:/9000/file/upload`, formData,
+    { observe: 'events', reportProgress: true});
+  }
 
 }

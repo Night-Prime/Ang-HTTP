@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Playlist } from './interface/song';
 import { UserService } from './service/user.service';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -21,12 +22,13 @@ export class AppComponent implements OnInit {
     this.onDeleteSong();
     // this.onUpdateSong();
     // this.onAddSong();
+    this.OnGetSong();
   }
 
    // subscribing to the service and emitting all the data stream
    OnGetSongs(): void {
     this.songService.getPlaylist().subscribe(
-      (response) => console.table(response),
+      (response) => console.log(response),
       (error: any) => console.log(error),
       () => console.log('Done getting tracks!'),
     );
@@ -72,6 +74,28 @@ export class AppComponent implements OnInit {
       (error: any) => console.log(error),
       () => console.log('Done deleting a track'),
     );
+  }
+
+  onUploadSong(files:any): void {
+    console.log(files);
+    // const formData = new FormData();
+    // for(const file of files){
+    //   formData.append('files', file, file.name)
+    // }
+    // this.songService.uploadSongs(formData).subscribe(
+    //   (event) => {
+    //     switch(event.type) {
+    //       case HttpEventType.UploadProgress || HttpEventType.DownloadProgress:
+    //         console.log(event);
+    //         break;
+    //       case HttpEventType.Response:
+    //           console.log(event);
+    //           break;
+    //     }
+    //   },
+    //   (error: any) => console.log(error),
+    //   () => console.log('Done deleting a track'),
+    // );
   }
 
 }
