@@ -17,12 +17,12 @@ export class AppComponent implements OnInit {
   constructor(private songService: UserService) {}
 
   ngOnInit(): void {
-    this.OnGetSongs();
+    // this.OnGetSongs();
     // this.changeSong();
-    this.onDeleteSong();
+    // this.onDeleteSong();
     // this.onUpdateSong();
     // this.onAddSong();
-    this.OnGetSong();
+    // this.OnGetSong();
   }
 
    // subscribing to the service and emitting all the data stream
@@ -76,26 +76,27 @@ export class AppComponent implements OnInit {
     );
   }
 
-  onUploadSong(files:any): void {
+  onUploadSong(files:File[]): void {
+    console.log((event?.target as HTMLInputElement).files)
     console.log(files);
-    // const formData = new FormData();
-    // for(const file of files){
-    //   formData.append('files', file, file.name)
-    // }
-    // this.songService.uploadSongs(formData).subscribe(
-    //   (event) => {
-    //     switch(event.type) {
-    //       case HttpEventType.UploadProgress || HttpEventType.DownloadProgress:
-    //         console.log(event);
-    //         break;
-    //       case HttpEventType.Response:
-    //           console.log(event);
-    //           break;
-    //     }
-    //   },
-    //   (error: any) => console.log(error),
-    //   () => console.log('Done deleting a track'),
-    // );
+    const formData = new FormData();
+    for(const file of files){
+      formData.append('files', file, file.name)
+    }
+    this.songService.uploadSongs(formData).subscribe(
+      (event) => {
+        switch(event.type) {
+          case HttpEventType.UploadProgress || HttpEventType.DownloadProgress:
+            console.log((event));
+            break;
+          case HttpEventType.Response:
+              console.log(event);
+              break;
+        }
+      },
+      (error: any) => console.log(error),
+      () => console.log('Done deleting a track'),
+    );
   }
 
 }

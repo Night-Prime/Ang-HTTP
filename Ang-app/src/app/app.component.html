@@ -1,5 +1,5 @@
-<h1>Welcome to my HTTP Tutorial</h1>
+<h5>Welcome to my HTTP Tutorial</h5>
 
 <form>
-    <input type="file" (change)="onUploadSong($event)" />
+    <input type="file" (change)="onUploadSong($any($event.target).files)" multiple />
 </form>
