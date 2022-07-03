@@ -45,8 +45,13 @@ export class UserService {
 
   // Upload data
   uploadSongs(formData: FormData): Observable<HttpEvent<string[]>> {
-    return this.http.post<string[]>(`http://localhost:/9000/file/upload`, formData,
+    return this.http.post<string[]>(`http://localhost:/4200/file/upload`, formData,
     { observe: 'events', reportProgress: true});
+  }
+ 
+  // getTrackdata using the ResponseType Params
+  getSongsLyrics(): Observable<string> {
+    return this.http.get(`assets/text.txt`, {responseType: 'text'});
   }
 
 }

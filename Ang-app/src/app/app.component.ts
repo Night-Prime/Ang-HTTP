@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
     // this.onUpdateSong();
     // this.onAddSong();
     // this.OnGetSong();
+    this.onSongLyrics();
   }
 
    // subscribing to the service and emitting all the data stream
@@ -77,7 +78,7 @@ export class AppComponent implements OnInit {
   }
 
   onUploadSong(files:File[]): void {
-    console.log((event?.target as HTMLInputElement).files)
+    console.log((event?.target as HTMLInputElement).files);
     console.log(files);
     const formData = new FormData();
     for(const file of files){
@@ -98,6 +99,15 @@ export class AppComponent implements OnInit {
       () => console.log('Done deleting a track'),
     );
   }
+
+  onSongLyrics(): void {
+    this.songService.getSongsLyrics().subscribe(
+      (response) => console.log('Response from Lyrics:',response),
+      (error: any) => console.log(error),
+      () => console.log('Done getting the track Lyrics'),
+    );
+  }
+
 
 }
 
