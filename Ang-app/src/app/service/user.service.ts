@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Playlist } from '../interface/song';
 import { environment } from 'src/environments/environment';
 
@@ -16,7 +16,9 @@ export class UserService {
 
   // GET requests
   getPlaylist(): Observable<Playlist[]> {
-    return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`,);
+    return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`).pipe(
+      tap(songs => console.table(songs))
+    );
   }
 
   getSong(): Observable<Playlist> {
@@ -48,7 +50,7 @@ export class UserService {
     return this.http.post<string[]>(`http://localhost:/4200/file/upload`, formData,
     { observe: 'events', reportProgress: true});
   }
- 
+
   // getTrackdata using the ResponseType Params
   getSongsLyrics(): Observable<string> {
     return this.http.get(`assets/text.txt`, {responseType: 'text'});

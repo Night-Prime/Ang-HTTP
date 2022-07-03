@@ -1,5 +1,20 @@
-<h5>Welcome to my HTTP Tutorial</h5>
+<h2>Spotify Data List</h2>
 
-<form>
-    <input type="file" (change)="onUploadSong($any($event.target).files)" multiple />
-</form>
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Artist</th>
+        <th>Track</th>
+        <th>Listened</th>
+        <th>Favourites</th>
+    </thead>
+    <tbody *ngFor="let song of songs; let i = index">
+        <tr>
+            <td>{{ i + 1}}</td>
+            <td>{{ song.artist }}</td>
+            <td>{{ song.track }}</td>
+            <td>{{ song.listened }}</td>
+            <td>{{ song.favorites }}</td>
+        </tr>
+    </tbody>
+</table>

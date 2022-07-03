@@ -10,6 +10,7 @@ import { HttpEventType } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
   title = 'Ang-app';
+  songs?: Playlist[];
   private song:any = {
     "id": 2,
     "track": "Reckless",
@@ -17,19 +18,22 @@ export class AppComponent implements OnInit {
   constructor(private songService: UserService) {}
 
   ngOnInit(): void {
-    // this.OnGetSongs();
+    this.OnGetSongs();
     // this.changeSong();
     // this.onDeleteSong();
     // this.onUpdateSong();
     // this.onAddSong();
     // this.OnGetSong();
-    this.onSongLyrics();
+    // this.onSongLyrics();
   }
 
    // subscribing to the service and emitting all the data stream
    OnGetSongs(): void {
     this.songService.getPlaylist().subscribe(
-      (response) => console.log(response),
+      (response) => {
+        console.log(response);
+        this.songs = response;
+      },
       (error: any) => console.log(error),
       () => console.log('Done getting tracks!'),
     );
