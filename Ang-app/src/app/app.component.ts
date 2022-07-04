@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     // this.onDeleteSong();
     // this.onUpdateSong();
     // this.onAddSong();
-    // this.OnGetSong();
+    this.OnGetSong();
     // this.onSongLyrics();
   }
 

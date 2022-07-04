@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, retry, tap } from 'rxjs';
 import { Playlist } from '../interface/song';
 import { environment } from 'src/environments/environment';
 
@@ -18,19 +18,21 @@ export class UserService {
   // GET requests
   getPlaylist(): Observable<Playlist[]> {
     return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`)
+    // mapping in groups(array)
     .pipe(
-        // tap(songs => console.table(songs)),
-        map(songs => songs.map(song =>({
-          ...song,
-          artist: song.artist.toUpperCase(),
-          isLiked: song.id === 10 ? 'Most Liked' : 'Hated',
-          image: `${this.trackImg}/${song.artist.toLowerCase()}`,
-        })))
+        retry(3) //calls the function the no. of times
     );
   }
 
   getSong(): Observable<Playlist> {
-    return this.http.get<Playlist>(`${this.BASE_URL}/playlist/1`);
+    return this.http.get<Playlist>(`${this.BASE_URL}/playlist/1`)
+    // mapping one item to another
+    .pipe(
+      map(song => {
+        return {...song, isLiked: true, searchKey: [song.artist,song.track ]}
+      })
+    )
+    ;
   }
 
   // POST request
@@ -64,4 +66,21 @@ export class UserService {
     return this.http.get(`assets/text.txt`, {responseType: 'text'});
   }
 
+  // getPlaylist(): Observable<Playlist[]> {
+  //   return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`)
+  //   // mapping in groups(array)
+  //   .pipe(
+  //       // tap(songs => console.table(songs)),
+  //       map(songs => songs.map(song =>({
+  //         ...song,
+  //         artist: song.artist.toUpperCase(),
+  //         track: song.track,
+  //         listened: song.listened,
+  //         favorites: song.favorites,
+  //         isLiked: song.id === 10 ? 'Most Liked' : 'Hated',
+  //         image: `${this.trackImg}/${song.artist.toLowerCase()}`,
+  //         searchKey: [song.artist,song.track ]
+  //       })))
+  //   );
+  // }
 }
