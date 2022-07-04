@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
    OnGetSongs(): void {
     this.songService.getPlaylist().subscribe(
       (response) => {
-        console.log(response);
+        console.table(response);
         this.songs = response;
       },
       (error: any) => console.log(error),
@@ -81,8 +81,9 @@ export class AppComponent implements OnInit {
     );
   }
 
-  onUploadSong(files:File[]): void {
+  onUploadSong(event: any): void {
     console.log((event?.target as HTMLInputElement).files);
+    const files : any = event!.target.files;
     console.log(files);
     const formData = new FormData();
     for(const file of files){

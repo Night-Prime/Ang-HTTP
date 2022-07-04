@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Playlist } from '../interface/song';
 import { environment } from 'src/environments/environment';
 
@@ -16,8 +16,14 @@ export class UserService {
 
   // GET requests
   getPlaylist(): Observable<Playlist[]> {
-    return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`).pipe(
-      tap(songs => console.table(songs))
+    return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`)
+    .pipe(
+        // tap(songs => console.table(songs)),
+        map(songs => songs.map(song =>({
+          ...song,
+          artist: song.artist.toUpperCase(),
+          isLiked: song.id === 10 ? 'Most Liked' : 'Hated'
+        })))
     );
   }
 

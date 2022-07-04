@@ -1,5 +1,7 @@
 <h2>Spotify Data List</h2>
 
+<!-- <input type="file" name="" id="" (change)="onUploadSong($event)"> -->
+
 <table>
     <thead>
         <th>ID</th>
@@ -7,6 +9,7 @@
         <th>Track</th>
         <th>Listened</th>
         <th>Favourites</th>
+        <th>Liked</th>
     </thead>
     <tbody *ngFor="let song of songs; let i = index">
         <tr>
@@ -15,6 +18,8 @@
             <td>{{ song.track }}</td>
             <td>{{ song.listened }}</td>
             <td>{{ song.favorites }}</td>
+            <td>{{ song.isLiked }}</td>
+
         </tr>
     </tbody>
 </table>
