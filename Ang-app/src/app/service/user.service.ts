@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent } from '@angular/common/http';
-import { map, Observable, retry, tap } from 'rxjs';
+import { catchError, map, Observable, of, retry, tap } from 'rxjs';
 import { Playlist } from '../interface/song';
 import { environment } from 'src/environments/environment';
 
@@ -20,7 +20,10 @@ export class UserService {
     return this.http.get<Playlist[]>(`${this.BASE_URL}/playlist`)
     // mapping in groups(array)
     .pipe(
-        retry(3) //calls the function the no. of times
+        // retry(3) calls the function the no. of times
+        catchError((error: any) => {
+          return of([]);
+        })
     );
   }
 
