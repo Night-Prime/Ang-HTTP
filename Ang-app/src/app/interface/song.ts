@@ -4,6 +4,7 @@ export interface Playlist {
   track: string;
   listened: boolean;
   favorites: boolean;
+  image?: string;
   isLiked: any;
 }
 

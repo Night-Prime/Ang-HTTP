@@ -5,6 +5,7 @@
 <table>
     <thead>
         <th>ID</th>
+        <th>Image</th>
         <th>Artist</th>
         <th>Track</th>
         <th>Listened</th>
@@ -14,6 +15,9 @@
     <tbody *ngFor="let song of songs; let i = index">
         <tr>
             <td>{{ i + 1}}</td>
+            <td>
+              <img [src]="song.image" height="80" width="80" margin-left="2rem" alt="Avatar" />
+            </td>
             <td>{{ song.artist }}</td>
             <td>{{ song.track }}</td>
             <td>{{ song.listened }}</td>

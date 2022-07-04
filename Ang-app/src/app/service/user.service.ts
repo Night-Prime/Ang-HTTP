@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class UserService {
 
   private BASE_URL = environment.BASE_URL;
+  readonly trackImg = 'https://robohash.org';
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +23,8 @@ export class UserService {
         map(songs => songs.map(song =>({
           ...song,
           artist: song.artist.toUpperCase(),
-          isLiked: song.id === 10 ? 'Most Liked' : 'Hated'
+          isLiked: song.id === 10 ? 'Most Liked' : 'Hated',
+          image: `${this.trackImg}/${song.artist.toLowerCase()}`,
         })))
     );
   }
